@@ -1,0 +1,302 @@
+
+<div class="dashboard">
+    <header class="navbar">
+      <a class="brand" (click)="selectCategory('Home')">DIONYSUS</a>
+  
+      <nav>
+        <button
+          *ngFor="let category of ['Home', 'Movies', 'TV Shows', 'My List']"
+          [class.active]="activeCategory === category"
+          (click)="selectCategory(category)"
+        >
+          {{ category }}
+        </button>
+      </nav>
+  
+      <div class="nav-actions">
+        <input
+          type="search"
+          placeholder="Search titles..."
+          aria-label="Search movies and TV shows"
+          [(ngModel)]="searchQuery"
+        />
+      
+        <div class="profile-menu">
+          <button
+            class="profile-trigger"
+            (click)="toggleProfileMenu()"
+            [attr.aria-expanded]="profileMenuOpen"
+            aria-label="Open profile menu"
+          >
+            <span class="profile-avatar">
+              {{ avatarEmoji }}
+            </span>
+          </button>
+      
+          <div class="profile-dropdown" *ngIf="profileMenuOpen">
+            <div class="profile-dropdown-header">
+              <span class="profile-avatar">{{ avatarEmoji }}</span>
+              <div>
+                <strong>{{ displayName || username || 'Dionysus User' }}</strong>
+                <small>{{ userEmail || 'Your account' }}</small>
+              </div>
+            </div>
+      
+            <div class="profile-divider"></div>
+      
+            <button (click)="openProfile()">My Profile</button>
+            <button (click)="openAccountSettings()">Account Settings</button>
+      
+            <div class="profile-divider"></div>
+      
+            <button class="profile-logout" (click)="logout()">
+              Log Out
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+  
+    
+    <section class="hero" *ngIf="activeCategory === 'Home' && !searchQuery">
+        <div class="hero-content">
+        <span class="eyebrow">🍇 DIONYSUS ORIGINALS</span>
+    
+        <h1>The Good Life</h1>
+    
+        <p class="metadata">2024 · Comedy · Mythology</p>
+    
+        <p class="description">
+            Even the god of wine needs a night off.
+            Join Dionysus for divine entertainment, endless grapes,
+            and a little heavenly assistance.
+        </p>
+    
+        <div class="hero-actions">
+            <button class="primary" (click)="toggleMyList(featuredTitle)">
+            {{ featuredInList ? '✓ In My List' : '+ Add to My List' }}
+            </button>
+    
+            <button class="secondary" (click)="selectCategory('Movies')">
+            Explore Movies
+            </button>
+        </div>
+        </div>
+    </section>
+  
+    <section
+      class="continue-watching"
+      *ngIf="activeCategory === 'Home' && !searchQuery && continueWatching.length">
+
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">PICK UP WHERE YOU LEFT OFF</p>
+          <h2>Continue Watching</h2>
+        </div>
+
+        <span class="count">
+          {{ continueWatching.length }} titles
+        </span>
+      </div>
+
+      <div class="continue-grid">
+        <article
+          class="continue-card"
+          *ngFor="let item of continueWatching">
+
+          <a
+            class="continue-poster"
+            [routerLink]="['/watch', item.movie._id]">
+
+            <img
+              [src]="item.movie.backdropUrl || item.movie.posterUrl"
+              [alt]="item.movie.title"
+            />
+
+            <div class="poster-overlay">
+              <span class="resume-icon">▶</span>
+              <span class="resume-label">Resume</span>
+            </div>
+
+            <div class="poster-progress-track">
+              <div
+                class="poster-progress-fill"
+                [style.width.%]="getProgressPercentage(item)">
+              </div>
+            </div>
+          </a>
+
+          <div class="continue-info">
+            <h3>{{ item.movie.title }}</h3>
+          
+            <div class="continue-metadata">
+              <span>{{ getProgressPercentage(item) | number:'1.0-0' }}% watched</span>
+              <span>{{ getRemainingTime(item) }}</span>
+            </div>
+          
+            <button
+              class="remove-progress-button"
+              (click)="removeFromContinueWatching(item)"
+              [disabled]="removingProgressId !== null"
+            >
+              {{ removingProgressId === item.movie._id ? 'Removing...' : 'Remove' }}
+            </button>
+          </div>
+
+        </article>
+      </div>
+    </section>
+
+    <main class="catalog">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">YOUR NEXT OBSESSION</p>
+          <h2>
+            {{
+              searchQuery
+                ? 'Search Results'
+                : activeCategory === 'Home'
+                  ? 'Popular on Dionysus'
+                  : activeCategory
+            }}
+          </h2>
+        </div>
+        <span class="count">{{ visibleTitles.length }} titles</span>
+      </div>
+  
+      <!-- Genre carousels on the Home page -->
+<div
+class="genre-sections"
+*ngIf="activeCategory === 'Home' && !searchQuery && genreGroups.length"
+>
+<section
+  class="genre-section"
+  *ngFor="let group of genreGroups"
+>
+  <div class="genre-heading">
+    <h2>{{ group.genre }}</h2>
+    <span>{{ group.titles.length }} titles</span>
+  </div>
+
+  <div class="genre-carousel">
+    <article
+      class="movie-card"
+      *ngFor="let title of group.titles"
+    >
+      <div class="poster">
+        <a
+          class="poster-link"
+          [routerLink]="['/movie', title.id]"
+        >
+          <img
+            [src]="title.poster"
+            [alt]="title.name + ' poster'"
+            loading="lazy"
+          />
+        </a>
+
+        <div class="movie-hover-details">
+          <h3>{{ title.name }}</h3>
+
+          <p class="hover-metadata">
+            {{ title.year }} · ★ {{ title.rating }}
+          </p>
+
+          <p class="hover-genres">{{ title.genre }}</p>
+
+          <p class="hover-description">
+            {{ title.description }}
+          </p>
+
+          <a
+            class="details-button"
+            [routerLink]="['/movie', title.id]"
+          >
+            View Details
+          </a>
+        </div>
+
+        <button
+          class="list-button"
+          (click)="toggleMyList(title)"
+          [attr.aria-label]="'Toggle ' + title.name + ' in My List'"
+        >
+          {{ myList.includes(title.id) ? '✓' : '+' }}
+        </button>
+
+        <span class="type-tag">{{ title.type }}</span>
+      </div>
+
+      <div class="movie-info">
+        <h3>{{ title.name }}</h3>
+        <p>{{ title.year }} · {{ title.genre }} · {{ title.rating }}</p>
+      </div>
+    </article>
+  </div>
+</section>
+</div>
+
+<!-- Keep the regular grid for search, Movies, TV Shows and My List -->
+        <div
+        class="movie-grid"
+        *ngIf="(activeCategory !== 'Home' || searchQuery) && visibleTitles.length; else emptyState"
+        >
+        <article class="movie-card" *ngFor="let title of visibleTitles">
+          <div class="poster">
+            <a class="poster-link" [routerLink]="['/movie', title.id]">
+              <img
+                [src]="title.poster"
+                [alt]="title.name + ' poster'"
+                loading="lazy"
+              />
+            </a>
+
+            <div class="movie-hover-details">
+              <h3>{{ title.name }}</h3>
+              <p class="hover-metadata">
+                {{ title.year }} · ★ {{ title.rating }}
+              </p>
+              <p class="hover-genres">{{ title.genre }}</p>
+              <p class="hover-description">{{ title.description }}</p>
+              <a class="details-button" [routerLink]="['/movie', title.id]">
+                View Details
+              </a>
+            </div>
+
+            <button
+              class="list-button"
+              (click)="toggleMyList(title)"
+              [attr.aria-label]="'Toggle ' + title.name + ' in My List'"
+            >
+              {{ myList.includes(title.id) ? '✓' : '+' }}
+            </button>
+
+            <span class="type-tag">{{ title.type }}</span>
+          </div>
+
+          <div class="movie-info">
+            <h3>{{ title.name }}</h3>
+            <p>{{ title.year }} · {{ title.genre }} · {{ title.rating }}</p>
+          </div>
+        </article>
+      </div>
+  
+      <ng-template #emptyState>
+        <div class="empty-state">
+          <h3>No titles found</h3>
+          <p>Try another search or explore a different category.</p>
+          <button class="secondary" (click)="selectCategory('Home')">
+            Back to Home
+          </button>
+        </div>
+      </ng-template>
+    </main>
+  
+    <footer>
+      <span class="brand">DIONYSUS</span>
+      <p>Your entertainment universe.</p>
+      <p class="disclaimer">
+        Prototype catalog. Movie and TV metadata and posters are for demonstration.
+      </p>
+    </footer>
+  </div>

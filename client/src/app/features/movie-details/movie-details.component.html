@@ -1,0 +1,89 @@
+
+<div class="details-page">
+
+    <div class="loading" *ngIf="isLoading">
+      <p>Loading movie...</p>
+    </div>
+  
+    <div class="error-state" *ngIf="!isLoading && errorMessage && !movie">
+      <h2>Something went wrong</h2>
+      <p>{{ errorMessage }}</p>
+      <button (click)="goBack()">Back to Dionysus</button>
+    </div>
+  
+    <ng-container *ngIf="movie as currentMovie">
+  
+      <div
+        class="backdrop"
+        [style.background-image]="'linear-gradient(to top, #0b0a10 5%, rgba(11,10,16,.55) 60%, rgba(11,10,16,.2)), url(' + (currentMovie.backdropUrl || currentMovie.posterUrl || '') + ')'"
+      ></div>
+  
+      <header class="details-navbar">
+        <button class="back-button" (click)="goBack()">
+          ← Back
+        </button>
+  
+        <span class="brand">DIONYSUS</span>
+      </header>
+  
+      <main class="details-content">
+  
+        <div class="poster-container" *ngIf="currentMovie.posterUrl">
+          <img
+            [src]="currentMovie.posterUrl"
+            [alt]="currentMovie.title + ' poster'"
+          />
+        </div>
+  
+        <section class="movie-information">
+  
+          <p class="eyebrow">DIONYSUS COLLECTION</p>
+  
+          <h1>{{ currentMovie.title }}</h1>
+  
+          <div class="metadata">
+            <span>{{ currentMovie.releaseYear }}</span>
+            <span>★ {{ currentMovie.rating }}/10</span>
+            <span *ngFor="let genre of currentMovie.genres">
+              {{ genre }}
+            </span>
+          </div>
+  
+          <p class="description">
+            {{ currentMovie.description }}
+          </p>
+  
+          <div class="actions">
+            <button
+                class="play-button"
+                [disabled]="!currentMovie.videoUrl"
+                (click)="playMovie()"
+            >
+                ▶ Play
+            </button>
+  
+            <button
+              class="list-button"
+              [disabled]="isUpdatingList"
+              (click)="toggleMyList()"
+            >
+              {{
+                isUpdatingList
+                  ? 'Updating...'
+                  : isInMyList
+                    ? '✓ In My List'
+                    : '+ Add to My List'
+              }}
+            </button>
+          </div>
+  
+          <p class="notice" *ngIf="errorMessage">
+            {{ errorMessage }}
+          </p>
+  
+        </section>
+      </main>
+  
+    </ng-container>
+  </div>
+  

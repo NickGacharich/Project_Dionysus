@@ -1,0 +1,100 @@
+<div class="profile-page">
+    <header class="profile-navbar">
+      <a routerLink="/dashboard" class="brand">DIONYSUS</a>
+      <a routerLink="/dashboard" class="back-link">← Back to Home</a>
+    </header>
+  
+    <main class="profile-content">
+      <p class="eyebrow">YOUR ACCOUNT</p>
+      <h1>My Profile</h1>
+      <p class="subtitle">
+        Customize your Dionysus identity.
+      </p>
+  
+      <section class="profile-card">
+        <div class="profile-identity">
+          <div class="large-avatar">
+            {{ selectedAvatarEmoji }}
+          </div>
+  
+          <div>
+            <h2>{{ displayName || user?.username }}</h2>
+            <p>{{ user?.email }}</p>
+          </div>
+        </div>
+  
+        <div class="profile-divider"></div>
+  
+        <div class="details-section">
+          <h3>Display Name</h3>
+  
+          <input
+            type="text"
+            [(ngModel)]="displayName"
+            maxlength="40"
+            minlength="3"
+            placeholder="Enter your display name"
+          />
+  
+          <p class="helper-text">
+            This is the name other parts of Dionysus will display.
+          </p>
+        </div>
+  
+        <div class="profile-divider"></div>
+  
+        <div class="details-section">
+            <h3>Choose Your Avatar</h3>
+          
+            <div class="avatar-grid">
+              <button
+                *ngFor="let avatar of avatars"
+                type="button"
+                class="avatar-option"
+                [class.selected]="selectedAvatar === avatar.id"
+                (click)="selectedAvatar = avatar.id"
+              >
+                {{ avatar.emoji }}
+              </button>
+            </div>
+        </div>
+  
+        <div class="profile-divider"></div>
+  
+        <div class="details-section">
+          <h3>Account Information</h3>
+  
+          <div class="detail-row">
+            <span>Username</span>
+            <strong>{{ user?.username }}</strong>
+          </div>
+  
+          <div class="detail-row">
+            <span>Email Address</span>
+            <strong>{{ user?.email }}</strong>
+          </div>
+  
+          <div class="detail-row">
+            <span>Account Role</span>
+            <strong>{{ user?.role }}</strong>
+          </div>
+        </div>
+  
+        <p class="success-message" *ngIf="successMessage">
+          {{ successMessage }}
+        </p>
+  
+        <p class="error-message" *ngIf="errorMessage">
+          {{ errorMessage }}
+        </p>
+  
+        <button
+          class="save-button"
+          (click)="saveProfile()"
+          [disabled]="saving || displayName.trim().length < 3"
+        >
+          {{ saving ? 'Saving...' : 'Save Changes' }}
+        </button>
+      </section>
+    </main>
+  </div>

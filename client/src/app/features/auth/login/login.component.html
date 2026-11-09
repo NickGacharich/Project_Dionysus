@@ -1,0 +1,46 @@
+
+<div class="auth-page">
+    <div class="auth-card">
+      <h1>DIONYSUS</h1>
+      <p class="subtitle">Your entertainment universe.</p>
+  
+      <h2>Welcome back</h2>
+      <p class="description">Sign in to continue watching.</p>
+  
+      <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+        <label for="email">Email</label>
+        <input
+          id="email"
+          type="email"
+          name="email"
+          [(ngModel)]="email"
+          required
+          email
+          placeholder="you@example.com"
+        />
+  
+        <label for="password">Password</label>
+        <input
+          id="password"
+          type="password"
+          name="password"
+          [(ngModel)]="password"
+          required
+          placeholder="Enter your password"
+        />
+  
+        <p class="error" *ngIf="errorMessage">
+          {{ errorMessage }}
+        </p>
+  
+        <button type="submit" [disabled]="isLoading || loginForm.invalid">
+          {{ isLoading ? 'Signing in...' : 'Sign In' }}
+        </button>
+      </form>
+  
+      <p class="switch-page">
+        Don't have an account?
+        <a routerLink="/register">Create one</a>
+      </p>
+    </div>
+  </div>

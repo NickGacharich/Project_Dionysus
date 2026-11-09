@@ -1,0 +1,72 @@
+
+<div class="auth-page">
+    <div class="auth-card">
+      <h1>DIONYSUS</h1>
+      <p class="subtitle">Your entertainment universe.</p>
+  
+      <h2>Create your account</h2>
+      <p class="description">Join and discover your next favorite.</p>
+  
+      <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
+        <label for="username">Username</label>
+        <input
+          id="username"
+          type="text"
+          name="username"
+          [(ngModel)]="username"
+          required
+          minlength="3"
+          maxlength="30"
+          placeholder="Choose a username"
+        />
+  
+        <label for="email">Email</label>
+        <input
+          id="email"
+          type="email"
+          name="email"
+          [(ngModel)]="email"
+          required
+          email
+          placeholder="you@example.com"
+        />
+  
+        <label for="password">Password</label>
+        <input
+          id="password"
+          type="password"
+          name="password"
+          [(ngModel)]="password"
+          required
+          minlength="8"
+          placeholder="At least 8 characters"
+        />
+  
+        <label for="confirmPassword">Confirm password</label>
+        <input
+          id="confirmPassword"
+          type="password"
+          name="confirmPassword"
+          [(ngModel)]="confirmPassword"
+          required
+          placeholder="Enter your password again"
+        />
+  
+        <p class="error" *ngIf="errorMessage">
+          {{ errorMessage }}
+        </p>
+  
+        <button
+          type="submit"
+          [disabled]="isLoading || registerForm.invalid"
+        >
+          {{ isLoading ? 'Creating account...' : 'Create Account' }}
+        </button>
+      </form>
+  
+      <p class="switch-page">
+        Already have an account?
+        <a routerLink="/login">Sign in</a>
+      </p>
+    </div>
+  </div>
