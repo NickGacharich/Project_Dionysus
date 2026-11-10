@@ -11,7 +11,7 @@ const movies = [
     releaseYear: 2008,
     genres: ["Action", "Crime", "Drama"],
     posterUrl: "https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
-    videoUrl: "http://localhost:5000/videos/big-buck-bunny.mp4",
+    videoUrl: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4',
     rating: 9.0,
   },
   {
@@ -20,7 +20,7 @@ const movies = [
     releaseYear: 2010,
     genres: ["Action", "Sci-Fi", "Thriller"],
     posterUrl: "https://image.tmdb.org/t/p/w500/oYuLEt3zVCKq57qu2F8dT7NIa6f.jpg",
-    videoUrl: "http://localhost:5000/videos/big-buck-bunny.mp4",
+    videoUrl: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4',
     rating: 8.8,
   },
   {
@@ -29,7 +29,7 @@ const movies = [
     releaseYear: 2014,
     genres: ["Adventure", "Drama", "Sci-Fi"],
     posterUrl: "https://image.tmdb.org/t/p/w500/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg",
-    videoUrl: "http://localhost:5000/videos/big-buck-bunny.mp4",
+    videoUrl: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4',
     rating: 8.7,
   },
   {
@@ -38,7 +38,7 @@ const movies = [
     releaseYear: 2024,
     genres: ["Adventure", "Drama", "Sci-Fi"],
     posterUrl: "https://image.tmdb.org/t/p/w500/1pdfLvkbY9ohJlCjQH2CZjjYVvJ.jpg",
-    videoUrl: "http://localhost:5000/videos/big-buck-bunny.mp4",
+    videoUrl: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4',
     rating: 8.5,
   },
   {
@@ -47,7 +47,7 @@ const movies = [
     releaseYear: 2022,
     genres: ["Action", "Crime", "Drama"],
     posterUrl: "https://image.tmdb.org/t/p/w500/74xTEgt7R36Fpooo50r9T25onhq.jpg",
-    videoUrl: "http://localhost:5000/videos/big-buck-bunny.mp4",
+    videoUrl: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4',
     rating: 7.8,
   },
   {
@@ -56,7 +56,7 @@ const movies = [
     releaseYear: 1999,
     genres: ["Action", "Sci-Fi"],
     posterUrl: "https://image.tmdb.org/t/p/w500/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg",
-    videoUrl: "http://localhost:5000/videos/big-buck-bunny.mp4",
+    videoUrl: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4',
     rating: 8.7,
   },
   {
@@ -65,7 +65,7 @@ const movies = [
     releaseYear: 2018,
     genres: ["Animation", "Action", "Adventure"],
     posterUrl: "https://image.tmdb.org/t/p/w500/8Vt6mWEReuy4Of61Lnj5Xj704m8.jpg",
-    videoUrl: "http://localhost:5000/videos/big-buck-bunny.mp4",
+    videoUrl: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4',
     rating: 8.4,
   },
   {
@@ -74,7 +74,7 @@ const movies = [
     releaseYear: 2022,
     genres: ["Action", "Adventure", "Sci-Fi"],
     posterUrl: "https://image.tmdb.org/t/p/w500/w3LxiVYdWWRvEVdn5RYq6jIqkb1.jpg",
-    videoUrl: "http://localhost:5000/videos/big-buck-bunny.mp4",
+    videoUrl: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4',
     rating: 7.8,
   },
 ];
