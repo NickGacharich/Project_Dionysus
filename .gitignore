@@ -26,5 +26,6 @@ npm-debug.log*
 # Local video files (avoid uploading large media files)
 server/public/videos/*.mp4
 
+
 # Temporary files
 *.tmp
